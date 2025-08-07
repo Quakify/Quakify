@@ -31,7 +31,7 @@
 </head>
 <body>
   <h1>QUAKIFY</h1>
-  <input type="file" id="fileInput" accept=".mp3,.avi,.mp2">
+  <input type="file" id="fileInput" accept=".mp3,.avi,.mpg">
   <video id="videoPlayer" controls hidden></video>
   <audio id="audioPlayer" controls hidden></audio>
 
@@ -56,12 +56,12 @@
         audioPlayer.src = url;
         audioPlayer.hidden = false;
         audioPlayer.play();
-      } else if (file.name.endsWith('.avi') || file.name.endsWith('.mp2') || file.type.startsWith('video')) {
+      } else if (file.name.endsWith('.avi') || file.name.endsWith('.mpg') || file.type.startsWith('video')) {
         videoPlayer.src = url;
         videoPlayer.hidden = false;
         videoPlayer.play();
       } else {
-        alert('Unsupported file type. Please upload MP3, AVI, or MP2.');
+        alert('Unsupported file type. Please upload MP3, AVI, or MPG.');
       }
     });
   </script>

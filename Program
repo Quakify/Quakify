@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QUAKIFY Media Player</title>
+  <style>
+    body {
+      background-color: #5C0;
+      color: #FFFFFF;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      font-size: 3em;
+      color: #FFFFFF;
+    }
+    .player {
+      margin-top: 30px;
+    }
+    video, audio {
+      width: 80%;
+      max-width: 600px;
+      margin: 20px auto;
+      display: block;
+      border: 2px solid #FFFFFF;
+      border-radius: 10px;
+    }
+    input[type="file"] {
+      margin-top: 20px;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+  <h1>QUAKIFY</h1>
+  <div class="player">
+    <input type="file" id="fileInput" accept=".mp3,.mp4">
+    <audio id="audioPlayer" controls hidden></audio>
+    <video id="videoPlayer" controls hidden></video>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const videoPlayer = document.getElementById('videoPlayer');
+
+    fileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      const url = URL.createObjectURL(file);
+
+      if (file.type.startsWith('audio')) {
+        videoPlayer.hidden = true;
+        audioPlayer.src = url;
+        audioPlayer.hidden = false;
+        audioPlayer.play();
+      } else if (file.type.startsWith('video')) {
+        audioPlayer.hidden = true;
+        videoPlayer.src = url;
+        videoPlayer.hidden = false;
+        videoPlayer.play();
+      } else {
+        alert('Unsupported file type. Please upload MP3 or MP4.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -15,9 +15,6 @@
       font-size: 3em;
       color: #FFFFFF;
     }
-    .player {
-      margin-top: 30px;
-    }
     video, audio {
       width: 80%;
       max-width: 600px;
@@ -34,33 +31,37 @@
 </head>
 <body>
   <h1>QUAKIFY</h1>
-  <div class="player">
-    <input type="file" id="fileInput" accept=".mp3,.mp4">
-    <audio id="audioPlayer" controls hidden></audio>
-    <video id="videoPlayer" controls hidden></video>
-  </div>
+  <input type="file" id="fileInput" accept=".mp3,.avi,.mp2">
+  <video id="videoPlayer" controls hidden></video>
+  <audio id="audioPlayer" controls hidden></audio>
 
   <script>
     const fileInput = document.getElementById('fileInput');
-    const audioPlayer = document.getElementById('audioPlayer');
     const videoPlayer = document.getElementById('videoPlayer');
+    const audioPlayer = document.getElementById('audioPlayer');
 
     fileInput.addEventListener('change', function () {
       const file = this.files[0];
+      if (!file) return;
+
       const url = URL.createObjectURL(file);
 
-      if (file.type.startsWith('audio')) {
-        videoPlayer.hidden = true;
+      // Reset players
+      videoPlayer.hidden = true;
+      audioPlayer.hidden = true;
+      videoPlayer.src = '';
+      audioPlayer.src = '';
+
+      if (file.name.endsWith('.mp3') || file.type.startsWith('audio')) {
         audioPlayer.src = url;
         audioPlayer.hidden = false;
         audioPlayer.play();
-      } else if (file.type.startsWith('video')) {
-        audioPlayer.hidden = true;
+      } else if (file.name.endsWith('.avi') || file.name.endsWith('.mp2') || file.type.startsWith('video')) {
         videoPlayer.src = url;
         videoPlayer.hidden = false;
         videoPlayer.play();
       } else {
-        alert('Unsupported file type. Please upload MP3 or MP4.');
+        alert('Unsupported file type. Please upload MP3, AVI, or MP2.');
       }
     });
   </script>
